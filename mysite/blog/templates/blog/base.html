@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'bs4/css/bootstrap.min.css' %}">
+
+    <!-- Medium Editor -->
+    <link rel="stylesheet" href="{% static 'medium-editor/css/medium-editor.css' %}">
+    <script src="{% static 'medium-editor/js/medium-editor.min.js' %}"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'faw/css/all.min.css' %}">
+    <script src="{% static 'faw/js/all.min.js' %}"></script>
+
+</head>
+
+<body class="loader">
+
+    <nav class="navbar navbar-expand-sm bg-light techfont custom-navbar">
+        <div class="container">
+            
+            <ul class="navbar-nav">
+                <li class = 'nav-item'><a class = 'nav-link' href="{% url 'post_list' %}" class="navbar-brand bigbrand">My Blog</a></li>
+                <li class = 'nav-item'><a class = 'nav-link' href="{% url 'about' %}">About</a></li>
+                <li class = 'nav-item'><a class = 'nav-link' href="https://www.github.com">Github</a></li>
+                <li class = 'nav-item'><a class = 'nav-link' href="https://www.linkedin.com">LinkedIn</a></li>
+            </ul>
+            
+            <!-- to the right -->
+            <ul class="navbar-nav navbar-right">
+                
+                {% if user.is_authenticated %}
+                
+                <li class = 'nav-item'><a class="nav-link" href="{% url 'post_new' %}">New Post</a></li>        
+                <li class = 'nav-item'><a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a></li>        
+                <li class = 'nav-item'><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>        
+                <li class='nav-item'><a class="nav-link">Welcome, {{ user.username }}</a></li>
+                
+                {% else %}
+                
+                <li class = 'nav-item'><a href="{% url 'login' %}"><i class="fas fa-user"></i></a></li>
+                
+                {% endif %}
+                
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="blog_posts">
+                    
+                    {% block content %}
+                        
+                    {% endblock %}
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
